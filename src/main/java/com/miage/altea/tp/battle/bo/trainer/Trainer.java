@@ -1,4 +1,4 @@
-package bo.trainer;
+package com.miage.altea.tp.battle.bo.trainer;
 
 import java.util.List;
 

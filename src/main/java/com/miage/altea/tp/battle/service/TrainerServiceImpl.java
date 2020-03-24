@@ -1,5 +1,6 @@
-package service;
-import bo.trainer.Trainer;
+package com.miage.altea.tp.battle.service;
+import com.miage.altea.tp.battle.bo.trainer.Pokemon;
+import com.miage.altea.tp.battle.bo.trainer.Trainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,13 @@ public class TrainerServiceImpl implements TrainerService {
 
     private RestTemplate restTemplate;
     private String pokemonServiceUrl;
+    private PokemonTypeService pokemonTypeService;
+
+
+    @Autowired
+    public void setPokemonTypeService(PokemonTypeService pokemonTypeService) {
+        this.pokemonTypeService = pokemonTypeService;
+    }
 
     public List<Trainer> listTrainer() {
         return Arrays.asList(restTemplate.getForObject(pokemonServiceUrl+"trainers/", Trainer[].class));
@@ -21,7 +29,11 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Override
     public Trainer getTrainerByName(String name) {
-        return restTemplate.getForObject(pokemonServiceUrl+"trainers/"+name+"/", Trainer.class);
+        Trainer t = restTemplate.getForObject(pokemonServiceUrl+"/trainers/"+name+"/", Trainer.class);
+        for(Pokemon pok : t.getTeam()){
+            pok.setPt(pokemonTypeService.getPokemonType(pok.getPokemonTypeId()));
+        }
+        return t;
     }
 
     @Autowired

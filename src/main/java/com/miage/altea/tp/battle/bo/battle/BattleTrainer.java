@@ -1,4 +1,4 @@
-package bo.battle;
+package com.miage.altea.tp.battle.bo.battle;
 
 import java.util.List;
 

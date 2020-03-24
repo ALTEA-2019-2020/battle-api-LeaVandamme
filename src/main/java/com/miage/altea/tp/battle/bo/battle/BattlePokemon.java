@@ -1,5 +1,5 @@
-package bo.battle;
-import bo.pokemonType.PokemonType;
+package com.miage.altea.tp.battle.bo.battle;
+import com.miage.altea.tp.battle.bo.pokemonType.PokemonType;
 
 public class BattlePokemon {
 

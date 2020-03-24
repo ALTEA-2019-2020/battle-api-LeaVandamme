@@ -1,6 +1,6 @@
-package service;
+package com.miage.altea.tp.battle.service;
 
-import bo.battle.Battle;
+import com.miage.altea.tp.battle.bo.battle.Battle;
 
 public interface BattleService {
     Battle createBattle(String attackerName, String opponentName);

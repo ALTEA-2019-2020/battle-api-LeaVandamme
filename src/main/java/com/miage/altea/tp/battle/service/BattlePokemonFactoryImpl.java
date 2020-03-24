@@ -1,21 +1,21 @@
-package service;
+package com.miage.altea.tp.battle.service;
 
-import bo.battle.BattlePokemon;
-import bo.pokemonType.PokemonType;
+import com.miage.altea.tp.battle.bo.battle.BattlePokemon;
+import com.miage.altea.tp.battle.bo.pokemonType.PokemonType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class BattlePokemonFactoryImpl implements BattlePokemonFactory {
 
-    @Autowired
     public void setStatsCalculator(StatsCalculator statsCalculator) {
         this.statsCalculator = statsCalculator;
     }
 
+    @Autowired
     private StatsCalculator statsCalculator;
 
-    public BattlePokemon  createBattlePokemon(PokemonType pokemonType, int level) {
+    public BattlePokemon createBattlePokemon(PokemonType pokemonType, int level) {
         var battlePokemon = new BattlePokemon(pokemonType,level);
         var hp = statsCalculator.calculateHp(pokemonType.getStats().getHp(),level);
         var attack = statsCalculator.calculateStat(pokemonType.getStats().getAttack(),level);

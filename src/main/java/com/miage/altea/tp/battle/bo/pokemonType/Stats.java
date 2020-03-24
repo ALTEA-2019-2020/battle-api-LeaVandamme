@@ -1,4 +1,4 @@
-package bo.pokemonType;
+package com.miage.altea.tp.battle.bo.pokemonType;
 
 public class Stats {
     private Integer speed;
