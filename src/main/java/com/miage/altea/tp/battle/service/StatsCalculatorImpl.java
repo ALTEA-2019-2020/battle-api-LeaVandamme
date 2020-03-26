@@ -9,15 +9,15 @@ public class StatsCalculatorImpl implements StatsCalculator {
     @Override
     public int calculateHp(int base, int level) {
 
-        int hp = 10 + level + (Math.round(base * (level/50)));
-        return hp;
+        float hp = 10 + level + base * ((float)level/50);
+        return (int) Math.floor(hp);
     }
 
     @Override
     public int calculateStat(int base, int level) {
 
-        int stat = 5 + (Math.round(base * (level / 50)));
-        return stat;
+        float stat = 5 + (base * ((float) level / 50));
+        return (int) Math.floor(stat);
     }
 
     @Override
