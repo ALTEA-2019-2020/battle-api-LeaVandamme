@@ -8,19 +8,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class BattlePokemonFactoryImpl implements BattlePokemonFactory {
 
+    /*StatsCalculator statsCalculator;
+    @Autowired
     public void setStatsCalculator(StatsCalculator statsCalculator) {
         this.statsCalculator = statsCalculator;
-    }
+    }*/
 
-    @Autowired
-    private StatsCalculator statsCalculator;
+    StatsCalculator statsCalculator = new StatsCalculatorImpl();
 
     public BattlePokemon createBattlePokemon(PokemonType pokemonType, int level) {
-        var battlePokemon = new BattlePokemon(pokemonType,level);
-        var hp = statsCalculator.calculateHp(pokemonType.getStats().getHp(),level);
-        var attack = statsCalculator.calculateStat(pokemonType.getStats().getAttack(),level);
-        var speed = statsCalculator.calculateStat(pokemonType.getStats().getSpeed(),level);
-        var defense = statsCalculator.calculateStat(pokemonType.getStats().getDefense(),level);
+        BattlePokemon battlePokemon = new BattlePokemon(pokemonType,level);
+        int hp = statsCalculator.calculateHp(pokemonType.getStats().getHp(),level);
+        int attack = statsCalculator.calculateStat(pokemonType.getStats().getAttack(),level);
+        int speed = statsCalculator.calculateStat(pokemonType.getStats().getSpeed(),level);
+        int defense = statsCalculator.calculateStat(pokemonType.getStats().getDefense(),level);
         battlePokemon.setHp(hp);
         battlePokemon.setMaxHp(hp);
         battlePokemon.setAttack(attack);

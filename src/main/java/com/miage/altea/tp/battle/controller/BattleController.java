@@ -8,9 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.miage.altea.tp.battle.service.BattleService;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/battles")
@@ -34,8 +32,12 @@ public class BattleController {
     }
 
     @GetMapping("/")
-    public Map<UUID, Battle> getAllBattles() {
-        return battles;
+    public List<Battle> getAllBattles(){
+        List<Battle> res = new ArrayList<Battle>();
+        for(UUID uuid : battles.keySet()) {
+            res.add(battles.get(uuid));
+        }
+        return res;
     }
 
     @GetMapping("/{uuid}")

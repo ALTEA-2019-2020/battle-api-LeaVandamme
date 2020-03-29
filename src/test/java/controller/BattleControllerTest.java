@@ -32,7 +32,7 @@ public class BattleControllerTest {
             BattleService battleService = mock(BattleService.class);
             BattleController battleController = new BattleController(battleService);
 
-            Map<UUID, Battle> battles = battleController.getAllBattles();
+            List<Battle> battles = battleController.getAllBattles();
             assertEquals(0, battles.size());
         }
 
