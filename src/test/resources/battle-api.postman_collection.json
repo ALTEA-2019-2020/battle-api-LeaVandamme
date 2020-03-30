@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "ff7c85fd-d827-4054-8eb4-10a9be2e3b4e",
+		"name": "battle-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create battle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7de98e8c-1fe1-467e-b028-a97f4e93d13d",
+						"exec": [
+							"let battle = pm.response.json();",
+							"",
+							"pm.globals.unset(\"battle_uuid\");",
+							"",
+							"pm.test(\"uuid is not null\", () => {",
+							"    pm.expect(battle.length > 0);",
+							"    pm.globals.set(\"uuid\", battle);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0f8a8fb0-2386-4980-9ada-6244f25ce336",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8082/battles/?attacker=Ash&opponent=Misty",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"battles",
+						""
+					],
+					"query": [
+						{
+							"key": "attacker",
+							"value": "Ash"
+						},
+						{
+							"key": "opponent",
+							"value": "Misty"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get battle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1c6d5850-127b-48a1-9490-c92f804c64f2",
+						"exec": [
+							"let battle = pm.response.json()[0];",
+							"",
+							"pm.test(\"trainer's name should be Ash\", () => {",
+							"   pm.expect(battle.trainer.name).to.equal(\"Ash\"); ",
+							"});",
+							"",
+							"pm.test(\"opponent's name should be Misty\", () => {",
+							"   pm.expect(battle.opponent.name).to.equal(\"Misty\"); ",
+							"});",
+							"",
+							"",
+							"pm.test(\"pokemons has full health\", () => {",
+							"   battle.trainer.team.forEach(pokemon => {",
+							"      pm.expect(pokemon.hp).to.equal(pokemon.maxHp); ",
+							"   });",
+							"   battle.opponent.team.forEach(pokemon => {",
+							"      pm.expect(pokemon.hp).to.equal(pokemon.maxHp); ",
+							"   });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8082/battles/",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"battles",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ash attack",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fdc0d134-6d72-4baf-b8c0-565ab27d7fbb",
+						"exec": [
+							"let battle = pm.response.json();",
+							"",
+							"pm.test(\"trainer should be Ash\", () => {",
+							"   pm.expect(battle.trainer.name).to.equal(\"Ash\"); ",
+							"});",
+							"",
+							"pm.test(\"opponent should be Misty\", () => {",
+							"   pm.expect(battle.opponent.name).to.equal(\"Misty\"); ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Ash's pokemons have full health\", () => {",
+							"   battle.trainer.team.forEach(poke => {",
+							"      pm.expect(poke.hp).to.equal(poke.maxHp); ",
+							"   });",
+							"});",
+							"",
+							"pm.test(\"Stari has lost 11 hp\", () => {",
+							"   pm.expect(battle.opponent.team[0].maxHp).to.equal(38);",
+							"   pm.expect(battle.opponent.team[0].hp).to.equal(27);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d173f91f-499d-4800-b5ee-70fc99c5ffeb",
+						"exec": [
+							"pm.environment.get(\"uuid\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8082/battles/{{uuid}}/Ash/attack",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"battles",
+						"{{uuid}}",
+						"Ash",
+						"attack"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ash attack again",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fdc0d134-6d72-4baf-b8c0-565ab27d7fbb",
+						"exec": [
+							"let error = pm.response.json();",
+							"",
+							"pm.test(\"an error should be thrown\", () => {",
+							"   pm.expect(error.message).to.equal(\"It is not your turn\"); ",
+							"});",
+							"",
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8082/battles/{{uuid}}/Ash/attack",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"battles",
+						"{{uuid}}",
+						"Ash",
+						"attack"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Misty Attack",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fdc0d134-6d72-4baf-b8c0-565ab27d7fbb",
+						"exec": [
+							"let battle = pm.response.json();",
+							"",
+							"pm.test(\"trainer should be Ash\", () => {",
+							"   pm.expect(battle.trainer.name).to.equal(\"Ash\"); ",
+							"});",
+							"",
+							"pm.test(\"opponent should be Misty\", () => {",
+							"   pm.expect(battle.opponent.name).to.equal(\"Misty\"); ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Pikachu lort 11 HP\", () => {",
+							"   pm.expect(battle.trainer.team[0].maxHp).to.equal(40);",
+							"   pm.expect(battle.trainer.team[0].hp).to.equal(29);",
+							"});",
+							"",
+							"pm.test(\"Starmie lost 11 HP\", () => {",
+							"   pm.expect(battle.opponent.team[0].maxHp).to.equal(38);",
+							"   pm.expect(battle.opponent.team[0].hp).to.equal(27);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8082/battles/{{uuid}}/Misty/attack",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"battles",
+						"{{uuid}}",
+						"Misty",
+						"attack"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
