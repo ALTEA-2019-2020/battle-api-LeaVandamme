@@ -79,7 +79,7 @@ public class BattleControllerTest {
     }
 
     @Test
-    void createBattle_shouldInsertInMapReturnUUID() throws NoSuchMethodException {
+    void createBattle_shouldInsertInMapReturnBattle() throws NoSuchMethodException {
         Map<UUID, Battle> map = new HashMap<UUID, Battle>();
         BattleTrainer b1 = new BattleTrainer("a", true);
         BattleTrainer b2 = new BattleTrainer("b", false);
@@ -93,8 +93,9 @@ public class BattleControllerTest {
         BattleController battleController = new BattleController(battleService);
 
         Mockito.when(battleService.createBattle("a", "b")).thenReturn(battle);
-        UUID uuid = battleController.createBattle("a", "b");
-        assertEquals(uuid, battle.getUuid());
+        Battle battleResult = battleController.createBattle("a", "b");
+        assertEquals(battleResult.getTrainer(), "a");
+        assertEquals(battleResult.getOpponent(), "b");
     }
 
     @Test

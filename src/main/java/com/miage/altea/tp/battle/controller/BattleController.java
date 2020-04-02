@@ -10,6 +10,7 @@ import com.miage.altea.tp.battle.service.BattleService;
 
 import java.util.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/battles")
 public class BattleController {
@@ -46,10 +47,10 @@ public class BattleController {
     }
 
     @PostMapping(value = "/", params={"attacker","opponent"}, produces = "application/json")
-    public UUID createBattle(@RequestParam String attacker, @RequestParam String opponent) {
+    public Battle createBattle(@RequestParam String attacker, @RequestParam String opponent) {
         Battle battle = this.battleService.createBattle(attacker, opponent);
         battles.put(battle.getUuid(), battle);
-        return battle.getUuid();
+        return battle;
     }
 
     @PostMapping("/{uuidBattle}/{attacker}/attack")

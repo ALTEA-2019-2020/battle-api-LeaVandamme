@@ -19,7 +19,7 @@
 							"",
 							"pm.test(\"uuid is not null\", () => {",
 							"    pm.expect(battle.length > 0);",
-							"    pm.globals.set(\"uuid\", battle);",
+							"    pm.globals.set(\"uuid\", battle.uuid);",
 							"});",
 							"",
 							""
@@ -217,6 +217,16 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ddb4552f-0959-407f-8e49-47ecdf8ba10e",
+						"exec": [
+							"pm.environment.get(\"uuid\");"
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -272,6 +282,16 @@
 							"});",
 							"",
 							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7681fec7-2071-4c7a-a167-f98a6d38ce56",
+						"exec": [
+							"pm.environment.get(\"uuid\");"
 						],
 						"type": "text/javascript"
 					}
