@@ -3,11 +3,9 @@ package service;
 import com.miage.altea.tp.battle.bo.battle.BattlePokemon;
 import com.miage.altea.tp.battle.bo.pokemonType.PokemonType;
 import com.miage.altea.tp.battle.bo.pokemonType.Stats;
-import com.miage.altea.tp.battle.bo.trainer.Pokemon;
 import com.miage.altea.tp.battle.service.BattlePokemonFactory;
 import com.miage.altea.tp.battle.service.BattlePokemonFactoryImpl;
 import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -24,7 +24,7 @@ public class TrainerServiceImpl implements TrainerService {
     }
 
     public List<Trainer> listTrainer() {
-        return Arrays.asList(restTemplate.getForObject(pokemonServiceUrl+"trainers/", Trainer[].class));
+        return Arrays.asList(restTemplate.getForObject(pokemonServiceUrl+"/trainers/", Trainer[].class));
     }
 
     @Override

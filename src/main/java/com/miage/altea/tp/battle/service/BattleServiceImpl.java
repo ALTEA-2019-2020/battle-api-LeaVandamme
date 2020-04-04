@@ -114,4 +114,16 @@ public class BattleServiceImpl implements BattleService{
         theAttacker.setNextTurn(false);
         return battle;
     }
+
+    public void setBattlePokemonFactory(BattlePokemonFactory battlePokemonFactory) {
+        this.battlePokemonFactory = battlePokemonFactory;
+    }
+
+    public void setStatsCalculator(StatsCalculator statsCalculator) {
+        this.statsCalculator = statsCalculator;
+    }
+
+    public void setTrainerService(TrainerService trainerService) {
+        this.trainerService = trainerService;
+    }
 }

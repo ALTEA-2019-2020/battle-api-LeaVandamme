@@ -3,13 +3,9 @@ package service;
 import com.miage.altea.tp.battle.bo.battle.BattlePokemon;
 import com.miage.altea.tp.battle.bo.pokemonType.PokemonType;
 import com.miage.altea.tp.battle.bo.pokemonType.Stats;
-import com.miage.altea.tp.battle.bo.trainer.Pokemon;
-import com.miage.altea.tp.battle.service.PokemonTypeService;
-import com.miage.altea.tp.battle.service.PokemonTypeServiceImpl;
 import com.miage.altea.tp.battle.service.StatsCalculatorImpl;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class StatsCalculatorTest {
 
@@ -49,9 +45,14 @@ public class StatsCalculatorTest {
     void calculateDegatsPikachuStari_shouldReturn11(){
 
         StatsCalculatorImpl statsCalculator = new StatsCalculatorImpl();
-        PokemonTypeService pokemonTypeService = new PokemonTypeServiceImpl();
-        PokemonType ptPikachu = pokemonTypeService.getPokemonType(25);
-        PokemonType ptMisty = pokemonTypeService.getPokemonType(120);
+        PokemonType ptPikachu = new PokemonType();
+        Stats statsPikachu = new Stats();
+        statsPikachu.setAttack(55);
+        ptPikachu.setStats(statsPikachu);
+        PokemonType ptMisty = new PokemonType();
+        Stats statsMisty = new Stats();
+        statsMisty.setDefense(55);
+        ptMisty.setStats(statsMisty);
 
         BattlePokemon pikachu = new BattlePokemon(ptPikachu, 18);
         BattlePokemon misty = new BattlePokemon(ptMisty, 18);
