@@ -94,8 +94,8 @@ public class BattleControllerTest {
 
         Mockito.when(battleService.createBattle("a", "b")).thenReturn(battle);
         Battle battleResult = battleController.createBattle("a", "b");
-        assertEquals(battleResult.getTrainer(), "a");
-        assertEquals(battleResult.getOpponent(), "b");
+        assertEquals(battleResult.getTrainer().getName(), "a");
+        assertEquals(battleResult.getOpponent().getName(), "b");
     }
 
     @Test
@@ -105,11 +105,6 @@ public class BattleControllerTest {
 
         assertNotNull(postMapping);
         assertArrayEquals(new String[]{"/{uuidBattle}/{attacker}/attack"}, postMapping.value());
-    }
-
-    @Test
-    void createBattle_shouldReturnResponseEntity() throws NoSuchMethodException {
-        
     }
 
     }

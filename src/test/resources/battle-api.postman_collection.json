@@ -15,7 +15,7 @@
 						"exec": [
 							"let battle = pm.response.json();",
 							"",
-							"pm.globals.unset(\"battle_uuid\");",
+							"pm.globals.unset(\"uuid\");",
 							"",
 							"pm.test(\"uuid is not null\", () => {",
 							"    pm.expect(battle.length > 0);",
@@ -129,7 +129,7 @@
 			"response": []
 		},
 		{
-			"name": "Ash attack",
+			"name": "Ash attacks",
 			"event": [
 				{
 					"listen": "test",
@@ -198,7 +198,7 @@
 			"response": []
 		},
 		{
-			"name": "Ash attack again",
+			"name": "Ash attacks again",
 			"event": [
 				{
 					"listen": "test",
@@ -253,7 +253,7 @@
 			"response": []
 		},
 		{
-			"name": "Misty Attack",
+			"name": "Misty attacks",
 			"event": [
 				{
 					"listen": "test",
