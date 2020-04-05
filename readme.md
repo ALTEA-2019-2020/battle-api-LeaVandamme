@@ -1,6 +1,7 @@
 ## Battle - API
 
-Port utilisé : 8082
+Port utilisé : 8082  
+Version Java : 13
 
 #### Pour tester
 
